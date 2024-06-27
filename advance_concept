@@ -1,0 +1,29 @@
+Now, using the sales_data table, you can run various analytical queries. Here's an example query to find the total sales for each product in the last quarter:
+
+
+WITH sales_summary AS (
+    SELECT
+        product, 
+        SUM(quantity * price) AS total_sales,
+        COUNT(*) AS total_transactions
+    FROM
+        sales_data
+    WHERE
+        date BETWEEN '2024-04-01' AND '2024-06-30'
+    GROUP BY
+        product
+)
+SELECT
+    product,
+    total_sales,
+    total_transactions
+FROM
+    sales_summary
+WHERE
+    total_sales > 1000
+ORDER BY
+    total_sales DESC
+LIMIT
+    10;
+
+
